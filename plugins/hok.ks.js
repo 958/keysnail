@@ -400,7 +400,7 @@ const pOptions = plugins.setupOptions("hok", {
 
     "hint_base_style" : {
         preset: {
-            "position"       : 'absolute',
+            "position"       : 'fixed',
             "z-index"        : '2147483647',
             "color"          : '#000',
             "font-family"    : 'monospace',
@@ -823,8 +823,6 @@ var hok = function () {
         var height = win.innerHeight;
         var width  = win.innerWidth;
 
-        var [scrollX, scrollY] = getBodyOffsets(body, html);
-
         // Arrange hint containers {{ =============================================== //
 
         var fragment      = doc.createDocumentFragment();
@@ -888,8 +886,8 @@ var hok = function () {
 
             // Set hint position {{ ===================================================== //
 
-            leftpos = rect.left > 0 ? rect.left + scrollX : scrollX;
-            toppos  = rect.top > 0 ? rect.top + scrollY : scrollY;
+            leftpos = rect.left > 0 ? rect.left : 0;
+            toppos  = rect.top > 0 ? rect.top : 0;
 
             if (elem instanceof HTMLAreaElement)
                 [leftpos, toppos] = getAreaOffset(elem, leftpos, toppos);
