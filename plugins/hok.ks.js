@@ -774,12 +774,13 @@ var hok = function () {
         return [leftpos, toppos];
     }
 
-    function getBodyOffsets(body, html)
+    function getBodyOffsets(body, html, win)
     {
-        return [
-            (body.scrollLeft || html.scrollLeft) - html.clientLeft,
-            (body.scrollTop || html.scrollTop) - html.clientTop
-        ];
+        // http://d.hatena.ne.jp/edvakf/20100830/1283199419
+        var style = win.getComputedStyle(body, null);
+        var rect = (style && style.position == 'relative') ?
+            body.getBoundingClientRect() : html.getBoundingClientRect();
+        return [-rect.left, -rect.top];
     }
 
     function setHintsText() {
@@ -823,12 +824,13 @@ var hok = function () {
         var height = win.innerHeight;
         var width  = win.innerWidth;
 
-        var [scrollX, scrollY] = getBodyOffsets(body, html);
+        var [scrollX, scrollY] = getBodyOffsets(body, html, win);
 
         // Arrange hint containers {{ =============================================== //
 
         var fragment      = doc.createDocumentFragment();
         var hintContainer = doc.createElement('div');
+        hintContainer.style.position = 'static';
 
         fragment.appendChild(hintContainer);
         hintContainer.id = hintContainerId;
