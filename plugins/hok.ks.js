@@ -776,7 +776,6 @@ var hok = function () {
 
     function getBodyOffsets(body, html, win)
     {
-        // http://d.hatena.ne.jp/edvakf/20100830/1283199419
         var style = win.getComputedStyle(body, null);
         var rect = (style && style.position == 'relative') ?
             body.getBoundingClientRect() : html.getBoundingClientRect();
