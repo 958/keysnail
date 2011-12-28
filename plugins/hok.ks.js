@@ -776,10 +776,17 @@ var hok = function () {
 
     function getBodyOffsets(body, html, win)
     {
-        var style = win.getComputedStyle(body, null);
-        var rect = (style && style.position == 'relative') ?
-            body.getBoundingClientRect() : html.getBoundingClientRect();
-        return [-rect.left, -rect.top];
+        // http://d.hatena.ne.jp/edvakf/20100830/1283199419
+        var style = win.getComputedStyle(body, null),
+            pos;
+        if (style && style.position == 'relative') {
+            var rect = body.getBoundingClientRect();
+            pos = { x: -rect.left-parseFloat(style.borderLeftWidth), y: -rect.top-parseFloat(style.borderTopWidth) };
+        } else {
+            var rect = html.getBoundingClientRect();
+            pos = { x: -rect.left, y: -rect.top };
+        }
+        return [ pos.x, pos.y ];
     }
 
     function setHintsText() {
