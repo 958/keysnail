@@ -4383,7 +4383,7 @@ var twitterClient =
             updateListButton: function () {
                 let listButtons = my.twitterClientHeader.listButtons;
 
-                for (let crawler of gLists)
+                for (let crawler of util.values(gLists))
                 {
                     if (crawler.name in listButtons && crawler.cache && crawler.cache.length)
                     {
@@ -4575,7 +4575,7 @@ var twitterClient =
 
         if (pOptions["automatically_begin_list"])
         {
-            for (let crawler of gLists)
+            for (let crawler of util.values(gLists))
             {
                 if (crawler.cache)
                     continue;
@@ -4587,7 +4587,7 @@ var twitterClient =
 
         if (pOptions["automatically_begin_tracking"])
         {
-            for (let crawler of util.keyValues(gTrackings))
+            for (let crawler of util.values(gTrackings))
             {
                 if (crawler.cache)
                     continue;
